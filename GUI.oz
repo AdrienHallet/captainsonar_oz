@@ -50,19 +50,19 @@ in
       % configure rows and set headers
       {Grid rowconfigure(1 minsize:50 weight:0 pad:5)}
       for N in 1..NRow do
-	 {Grid rowconfigure(N+1 minsize:50 weight:0 pad:5)}
-	 {Grid configure({Label N} row:N+1 column:1 sticky:wesn)}
+      	 {Grid rowconfigure(N+1 minsize:50 weight:0 pad:5)}
+      	 {Grid configure({Label N} row:N+1 column:1 sticky:wesn)}
       end
       % configure columns and set headers
       {Grid columnconfigure(1 minsize:50 weight:0 pad:5)}
       for N in 1..NColumn do
-	 {Grid columnconfigure(N+1 minsize:50 weight:0 pad:5)}
-	 {Grid configure({Label N} row:1 column:N+1 sticky:wesn)}
+      	 {Grid columnconfigure(N+1 minsize:50 weight:0 pad:5)}
+      	 {Grid configure({Label N} row:1 column:N+1 sticky:wesn)}
       end
       % configure scoreboard
       {GridScore rowconfigure(1 minsize:50 weight:0 pad:5)}
       for N in 1..(Input.nbPlayer) do
-	 {GridScore columnconfigure(N minsize:50 weight:0 pad:5)}
+	       {GridScore columnconfigure(N minsize:50 weight:0 pad:5)}
       end
 
       {DrawMap Grid}
@@ -125,28 +125,28 @@ in
       fun{$ Grid State}
 	 ID HandleScore Handle Mine Path NewPath X Y
       in
-	 guiPlayer(id:ID score:HandleScore submarine:Handle mines:Mine path:Path) = State
-	 pt(x:X y:Y) = Position
-	 NewPath = {DrawPath Grid ID.color X Y}
-	 {Grid.grid remove(Handle)}
-	 {Grid.grid configure(Handle row:X+1 column:Y+1 sticky:wesn)}
-	 {NewPath 'raise'()}
-	 {Handle 'raise'()}
-	 guiPlayer(id:ID score:HandleScore submarine:Handle mines:Mine path:NewPath|Path)
+    	 guiPlayer(id:ID score:HandleScore submarine:Handle mines:Mine path:Path) = State
+    	 pt(x:X y:Y) = Position
+    	 NewPath = {DrawPath Grid ID.color X Y}
+    	 {Grid.grid remove(Handle)}
+    	 {Grid.grid configure(Handle row:X+1 column:Y+1 sticky:wesn)}
+    	 {NewPath 'raise'()}
+    	 {Handle 'raise'()}
+    	 guiPlayer(id:ID score:HandleScore submarine:Handle mines:Mine path:NewPath|Path)
       end
    end
 
    fun{DrawMine Position}
       fun{$ Grid State}
-	 ID HandleScore Handle Mine Path LabelMine HandleMine X Y
+	       ID HandleScore Handle Mine Path LabelMine HandleMine X Y
       in
-	 guiPlayer(id:ID score:HandleScore submarine:Handle mines:Mine path:Path) = State
-	 pt(x:X y:Y) = Position
-	 LabelMine = label(text:"M" handle:HandleMine borderwidth:5 relief:raised bg:ID.color ipadx:5 ipady:5)
-	 {Grid.grid configure(LabelMine row:X+1 column:Y+1)}
-	 {HandleMine 'raise'()}
-	 {Handle 'raise'()}
-	 guiPlayer(id:ID score:HandleScore submarine:Handle mines:mine(HandleMine Position)|Mine path:Path)
+      	 guiPlayer(id:ID score:HandleScore submarine:Handle mines:Mine path:Path) = State
+      	 pt(x:X y:Y) = Position
+      	 LabelMine = label(text:"M" handle:HandleMine borderwidth:5 relief:raised bg:ID.color ipadx:5 ipady:5)
+      	 {Grid.grid configure(LabelMine row:X+1 column:Y+1)}
+      	 {HandleMine 'raise'()}
+      	 {Handle 'raise'()}
+      	 guiPlayer(id:ID score:HandleScore submarine:Handle mines:mine(HandleMine Position)|Mine path:Path)
       end
    end
 
@@ -165,13 +165,13 @@ in
       end
    in
       fun{RemoveMine Position}
-	 fun{$ Grid State}
-	    ID HandleScore Handle Mine Path NewMine
-	 in
-	    guiPlayer(id:ID score:HandleScore submarine:Handle mines:Mine path:Path) = State
-	    NewMine = {RmMine Grid Position Mine}
-	    guiPlayer(id:ID score:HandleScore submarine:Handle mines:NewMine path:Path)
-	 end
+      	 fun{$ Grid State}
+      	    ID HandleScore Handle Mine Path NewMine
+      	 in
+      	    guiPlayer(id:ID score:HandleScore submarine:Handle mines:Mine path:Path) = State
+      	    NewMine = {RmMine Grid Position Mine}
+      	    guiPlayer(id:ID score:HandleScore submarine:Handle mines:NewMine path:Path)
+      	 end
       end
    end
 
@@ -193,18 +193,18 @@ in
    in
       guiPlayer(id:ID score:HandleScore submarine:Handle mines:Mine path:Path) = State
       for H in Path.2 do
-	 {RemoveItem Grid H}
+	       {RemoveItem Grid H}
       end
       guiPlayer(id:ID score:HandleScore submarine:Handle mines:Mine path:Path.1|nil)
    end
 
    fun{UpdateLife Life}
       fun{$ Grid State}
-	 HandleScore
+	       HandleScore
       in
-	 guiPlayer(id:_ score:HandleScore submarine:_ mines:_ path:_) = State
-	 {HandleScore set(Life)}
-	 State
+      	 guiPlayer(id:_ score:HandleScore submarine:_ mines:_ path:_) = State
+      	 {HandleScore set(Life)}
+      	 State
       end
    end
 
@@ -213,11 +213,11 @@ in
       case State
       of nil then nil
       [] guiPlayer(id:ID score:_ submarine:_ mines:_ path:_)|Next then
-	 if (ID == WantedID) then
-	    {Fun Grid State.1}|Next
-	 else
-	    State.1|{StateModification Grid WantedID Next Fun}
-	 end
+	       if (ID == WantedID) then
+	          {Fun Grid State.1}|Next
+      	 else
+      	    State.1|{StateModification Grid WantedID Next Fun}
+      	 end
       end
    end
 
@@ -226,8 +226,8 @@ in
       case State
       of nil then nil
       [] guiPlayer(id:ID score:HandleScore submarine:Handle mines:M path:P)|Next then
-	 {HandleScore set(0)}
-	 if (ID == WantedID) then
+      	 {HandleScore set(0)}
+      	 if (ID == WantedID) then
 	    for H in P do
 	       {RemoveItem Grid H}
 	    end
@@ -250,7 +250,7 @@ in
    in
       {NewPort Stream Port}
       thread
-	 {TreatStream Stream nil nil}
+	       {TreatStream Stream nil nil}
       end
       Port
    end
@@ -259,32 +259,32 @@ in
       case Stream
       of nil then skip
       [] buildWindow|T then NewGrid in
-	 NewGrid = {BuildWindow}
-	 {TreatStream T NewGrid State}
+      	 NewGrid = {BuildWindow}
+      	 {TreatStream T NewGrid State}
       [] initPlayer(ID Position)|T then NewState in
-	 NewState = {DrawSubmarine Grid ID Position}
-	 {TreatStream T Grid NewState|State}
+      	 NewState = {DrawSubmarine Grid ID Position}
+      	 {TreatStream T Grid NewState|State}
       [] movePlayer(ID Position)|T then
-	 {TreatStream T Grid {StateModification Grid ID State {MoveSubmarine Position}}}
+	       {TreatStream T Grid {StateModification Grid ID State {MoveSubmarine Position}}}
       [] lifeUpdate(ID Life)|T then
-	 {TreatStream T Grid {StateModification Grid ID State {UpdateLife Life}}}
-	 {TreatStream T Grid State}
+      	 {TreatStream T Grid {StateModification Grid ID State {UpdateLife Life}}}
+      	 {TreatStream T Grid State}
       [] putMine(ID Position)|T then
-	 {TreatStream T Grid {StateModification Grid ID State {DrawMine Position}}}
+	       {TreatStream T Grid {StateModification Grid ID State {DrawMine Position}}}
       [] removeMine(ID Position)|T then
-	 {TreatStream T Grid {StateModification Grid ID State {RemoveMine Position}}}
+	       {TreatStream T Grid {StateModification Grid ID State {RemoveMine Position}}}
       [] surface(ID)|T then
-	 {TreatStream T Grid {StateModification Grid ID State RemovePath}}
+	       {TreatStream T Grid {StateModification Grid ID State RemovePath}}
       [] removePlayer(ID)|T then
-	 {TreatStream T Grid {RemovePlayer Grid ID State}}
+	       {TreatStream T Grid {RemovePlayer Grid ID State}}
       [] explosion(ID Position)|T then
-	 {TreatStream T Grid State}
+	       {TreatStream T Grid State}
       [] drone(ID Drone)|T then
-	 {TreatStream T Grid State}
+	       {TreatStream T Grid State}
       [] sonar(ID)|T then
-	 {TreatStream T Grid State}
+	       {TreatStream T Grid State}
       [] _|T then
-	 {TreatStream T Grid State}
+	       {TreatStream T Grid State}
       end
    end
 
